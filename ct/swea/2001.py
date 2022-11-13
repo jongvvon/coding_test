@@ -63,8 +63,8 @@ for case in range(1, T+1):
     for i in range(0, int(M)-int(N)+1):
         for j in range(0, int(M)-int(N)+1):
             for k in range(0, int(N)):
-                for l in range(0, int(N)):
-                    ans += area[i+k][j+l]
+                for o in range(0, int(N)):
+                    ans += area[i+k][j+o]
             temp.append(ans)
             ans = 0
 
