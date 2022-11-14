@@ -29,9 +29,18 @@
 
 각 줄마다 "#T" (T는 테스트 케이스 번호)를 출력한 뒤, 주어진 제한 칼로리 이하의 조합중에서 가장 맛에 대한 점수가 높은 햄버거의 점수를 출력한다.
 """
+
+
 def dfs(idx, x, y):
     global val
-
+    if x > total:
+        return
+    if y > val:
+        val = y
+    if idx == stuff:
+        return
+    dfs(idx+1, x, y)
+    dfs(idx+1, x+data[idx][1], y+data[idx][0])
 
 
 T = int(input())
@@ -39,8 +48,9 @@ T = int(input())
 for case in range(1, T+1):
     stuff, total = map(int, input().split())
     data = [list(map(int, input().split())) for _ in range(stuff)]
-
-
+    val = 0
+    dfs(0, 0, 0)
+    print("#{} {}".format(case, val))
 
 # global - 전역변수
 
