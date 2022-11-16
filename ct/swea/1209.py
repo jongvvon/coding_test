@@ -26,9 +26,18 @@
 T = 10
 for case in range(1, T+1):
     num = int(input())
+    board = [list(map(int, input().split())) * 100 for _ in range(100)]
 
+    ans = []
+    for i in range(0, 100):
+        temp1 = 0
+        temp2 = 0
+        for j in range(0, 100):
+            temp1 += board[i][j]
+            temp2 += board[j][i]
+            ans.append(temp1)
+            ans.append(temp2)
 
-    for i in num:
-        print(*i)
+    print("#{} {}".format(num, max(ans)))
 
 
