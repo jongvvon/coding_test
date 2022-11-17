@@ -51,5 +51,7 @@
 """
 
 for case in range(1, int(input())+1):
-    num = list(map(int, input().split()))
+    plate, num = (map(int, input().split()))
+
+    print(plate, num)
 

@@ -39,6 +39,7 @@ def dfs(idx, x, y):
         val = y
     if idx == stuff:
         return
+    print("idx = {}, x = {}, y = {}, val = {}".format(idx, x, y, val))
     dfs(idx+1, x, y)
     dfs(idx+1, x+data[idx][1], y+data[idx][0])
 
