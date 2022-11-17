@@ -30,3 +30,44 @@ ABA도 회문이며, ABBA도 회문이다. A또한 길이 1짜리 회문이다.
 #부호와 함께 테스트 케이스의 번호를 출력하고, 공백 문자 후 찾은 회문의 길이를 출력한다.
 """
 
+
+def check_pd(idx, x, y):
+    global ans
+    x_temp = []
+    y_temp = []
+    length = []
+
+    if x == 100 or y == 100:
+        return
+
+    for a in range(0, idx):
+        x_temp.append(board[x+a][y])
+        y_temp.append(board[x][y+a])
+
+    if "".join(x_temp) == "".join(reversed(x_temp)):
+        idx += 1
+        check_pd(idx, x, y)
+        if max(length) < len(x_temp):
+            length.append(len(x_temp))
+
+    if "".join(y_temp) == "".join(reversed(y_temp)):
+        idx += 1
+        check_pd(idx, x, y)
+        if max(length) < len(y_temp):
+            length.append(len(y_temp))
+
+    else:
+        check_pd(idx, x+1, y)
+        check_pd(idx, x, y+1)
+
+    ans = max(length)
+
+
+T = 10
+for case in range(1, T+1):
+    num = int(input())
+    board = [list(map(str, input())) for _ in range(100)]
+    ans = 0
+    check_pd(2, 0, 0)
+
+    print("#{} {}".format(case, ans))
