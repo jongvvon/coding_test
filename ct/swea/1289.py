@@ -26,6 +26,15 @@
 초기값(모든bit가 0)에서 원래 값으로 복구하기 위한 최소 수정 횟수를 출력한다.
 """
 
-for case in range(1, int(input())+1):
-    num = list(map(int, input()))
-    
+T = int(input())
+for test in range(1, T+1):
+    num = input()
+    idx = ['0' for i in range(len(num))]
+    cnt = 0
+    for i in range(len(num)):
+        if idx[i] != num[i]:
+            cnt += 1
+            for j in range(len(num[i:])):
+                idx[i+j] = num[i]
+    print('#{} {}'.format(test, cnt))
+
