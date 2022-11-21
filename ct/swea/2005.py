@@ -54,6 +54,6 @@ for case in range(1, T+1):
                 temp[j] = numbers[j - 1] + numbers[j]
         for j in range(len(numbers)):
             numbers[j] = temp[j]
-            print(str(numbers[j]) + " ", end="")
+            print(str(numbers[j]), end=" ")
 
-        print("")
+        print()
