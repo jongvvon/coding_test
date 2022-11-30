@@ -1,28 +1,23 @@
-def prime_list(n):
-    sieve = [True] * (n + 1)
+import math
+import sys
+input = sys.stdin.readline
 
-    m = int(n ** 0.5)
-    for i in range(2, m + 1):
-        if sieve[i]:
-            for j in range(i + i, n + 1, i):
-                sieve[j] = False
+sieve = []
 
-    if sieve[n]:
-        return True
-    else:
-        return False
+sieve = [True] * (1000000 + 1)
+
+for i in range(2, int(math.sqrt(1000000)) + 1):
+    if sieve[i]:
+        for j in range(i + i, 1000000 + 1, i):
+            sieve[j] = False
 
 
-flag = True
-while flag:
+while True:
     num = int(input())
     if num == 0:
-        flag = False
         break
 
-    for i in range(2, num//2):
-        for j in range(num, num//2, -1):
-            if prime_list(i) and prime_list(j):
-                if i + j == num:
-                    print("{} = {} + {}".format(num, i, j))
-
+    for k in range(2, len(sieve)):
+        if sieve[k] and sieve[num - k]:
+            print("{} = {} + {}".format(num, k, num - k))
+            break
