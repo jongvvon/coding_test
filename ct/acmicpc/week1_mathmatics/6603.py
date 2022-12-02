@@ -1,13 +1,11 @@
-def lottery(depth, n, m):
-    if depth == m:
-        print(*answer)
-    for i in range(1, n+1):
-        if not visited[i]:
-            visited[i] = True
-            answer.append(i)
-            lottery(depth+1, n, m)
-            visited[i] = False
-            answer.pop()
+def combine(idx, x):
+    if idx == R:
+        print(*result)
+        return
+    for i in range(x, K):
+        result[idx] = S[i]
+        print(idx, result)
+        combine(idx+1, i+1)
 
 
 while True:
@@ -16,5 +14,7 @@ while True:
         break
     K = nums[0]
     S = nums[1:]
-    visited = [False] * K
-    answer = []
+    R = 6
+    result = [0] * R
+    combine(0, 0)
+    print()
