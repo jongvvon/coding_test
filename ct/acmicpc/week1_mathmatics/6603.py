@@ -18,3 +18,4 @@ while True:
     result = [0] * R
     combine(0, 0)
     print()
+
