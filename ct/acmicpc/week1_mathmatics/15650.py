@@ -1,13 +1,16 @@
-def dfs(idx, x):
-    if idx == M:
+N, M = map(int, input().split())
+answer = []
+
+
+def dfs(num):
+    if len(answer) == M:
         print(*answer)
         return
-    for i in range(x+1, N+1):
+
+    for i in range(num+1, N+1):
         answer.append(i)
-        dfs(idx+1, i)
+        dfs(i)
         answer.pop()
 
 
-N, M = map(int, input().split())
-answer = []
-dfs(0, 0)
+dfs(0)

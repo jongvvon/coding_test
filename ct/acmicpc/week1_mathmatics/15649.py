@@ -1,17 +1,17 @@
 N, M = map(int, input().split())
-temp = []
+answer = []
 
 
 def dfs():
-    if len(temp) == M:
-        print(*temp)
+    if len(answer) == M:
+        print(*answer)
         return
 
     for i in range(1, N+1):
-        if i not in temp:
-            temp.append(i)
+        if i not in answer:
+            answer.append(i)
             dfs()
-            temp.pop()
+            answer.pop()
 
 
 dfs()
