@@ -13,12 +13,12 @@ N = int(input())
 nums = sorted([int(input()) for _ in range(N)])
 
 temp = []
-for i in range(N-1):
-    temp.append(nums[i+1] - nums[i])
+for i in range(1, N):
+    temp.append(nums[i] - nums[i-1])
 
 gcd_num = temp[0]
 for j in range(1, len(temp)):
-    gcd_num = GCD(gcd_num, temp[i])
+    gcd_num = GCD(gcd_num, temp[j])
 
 result = set()
 for k in range(2, int(math.sqrt(gcd_num)) + 1):

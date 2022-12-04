@@ -9,7 +9,7 @@ if min(locations) == max(locations) == S:
 elif locations[0] >= S:
     print(max(locations) - S)
 elif locations[-1] <= S:
-    print(min(locations) - S)
+    print(S - min(locations))
 else:
     if max(locations) - S > S - min(locations):
         print(S-min(locations))
