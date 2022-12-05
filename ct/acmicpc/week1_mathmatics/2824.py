@@ -1,7 +1,20 @@
+import math
+
 N = int(input())
 N_nums = list(map(int, input().split()))
 M = int(input())
 M_nums = list(map(int, input().split()))
+N_num, M_num = 1, 1
 
-# N_nums 는 N의 약수, M 또한 동일 -> 약수간의 최대공약수? 비교
+for i in N_nums:
+    N_num *= i
+for j in M_nums:
+    M_num *= j
 
+ans = math.gcd(N_num, M_num)
+ans = str(ans)
+
+if len(ans) > 9:
+    print(ans[len(ans)-9:])
+else:
+    print(ans)
