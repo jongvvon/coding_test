@@ -1,8 +1,7 @@
 import sys
-import collections
 input = sys.stdin.readline
 
-queue = collections.deque()
+queue = []
 for case in range(int(input())):
     o = list(map(str, input().split()))
     order = o[0]
@@ -13,7 +12,8 @@ for case in range(int(input())):
 
     elif order == 'pop':
         if queue:
-            print(queue.popleft())
+            print(queue[0])
+            del queue[0]
         else:
             print(-1)
 
