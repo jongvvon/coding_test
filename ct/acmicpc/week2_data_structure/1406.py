@@ -1,26 +1,29 @@
-N = input()
+import sys
+input = sys.stdin.readline
+
+N = input().rstrip()
 N = list(N)
-M = int(input())
+N_tmp = []
 
 idx = len(N)
-for _ in range(M):
+for _ in range(int(input())):
     order = list(map(str, input().split()))
 
     if order[0] == 'P':
-        N.insert(idx, order[1])
-        idx += 1
+        N.append(order[1])
 
     if order[0] == 'L':
-        if idx != 0:
-            idx -= 1
+        if N:
+            N_tmp.append(N.pop())
 
     if order[0] == 'D':
-        if idx != len(N) - 1:
-            idx += 1
+        if N_tmp:
+            N.append(N_tmp.pop())
 
     if order[0] == 'B':
-        if idx != 0:
-            N.remove(N[idx-1])
-            idx -= 1
+        if N:
+            N.pop()
 
-print("".join(N))
+N_tmp = reversed(N_tmp)
+print("".join(N), end="")
+print("".join(N_tmp))
