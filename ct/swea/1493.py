@@ -39,14 +39,14 @@ for case in range(1, int(input())+1):
     qtemp = []
     for i in range(0, len(graph)):
         if p in graph[i]:
-            ptemp.append(i)
-            ptemp.append(graph[i].index(p))
+            ptemp.append(i+1)
+            ptemp.append(graph[i].index(p)+1)
         if q in graph[i]:
-            qtemp.append(i)
-            qtemp.append(graph[i].index(q))
+            qtemp.append(i+1)
+            qtemp.append(graph[i].index(q)+1)
 
     ans = []
     for j in range(0, len(ptemp)):
-        ans.append(ptemp[j]+qtemp[j]+1)
-
+        ans.append(ptemp[j]+qtemp[j]-1)
+    print(ans)
     print("#{} {}".format(case, graph[ans[0]][ans[1]]))
