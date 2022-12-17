@@ -3,6 +3,10 @@ array = [0 for _ in range(n)]
 for i in range(n):
     array[i] = list(map(int, input().split()))
 
+if n == 1:
+    print(array[0][0])
+    exit()
+
 dp = array[:]
 dp[1][0] += dp[0][0]
 dp[1][1] += dp[0][0]
