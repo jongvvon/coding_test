@@ -8,7 +8,7 @@ for case in range(int(input())):
 
     if n == 1:
         print(max(dp[0]) if max(dp[0]) > max(dp[1]) else max(dp[1]))
-        break
+        continue
 
     dp[0][1] += dp[1][0]
     dp[1][1] += dp[0][0]
