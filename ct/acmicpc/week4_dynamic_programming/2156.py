@@ -9,7 +9,6 @@ if n >= 1:
 if n >= 2:
     dp.append(wines[1] + wines[2])
     mdp.append(wines[1] + wines[2])
-
     # 우선, dp와 mdp를 채워놓고 시작
 
 for i in range(3, n + 1):
