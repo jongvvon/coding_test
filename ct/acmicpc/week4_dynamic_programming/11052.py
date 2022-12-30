@@ -20,6 +20,8 @@ price[3] + dp[i-3],
 ...
 price[i] + dp[0]
 
+
+
 => dp[i] = price[j] + dp[i-j]
 
 '''
