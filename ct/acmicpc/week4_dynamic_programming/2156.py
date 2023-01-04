@@ -18,3 +18,4 @@ for i in range(3, n + 1):
     mdp.append(max(dp))  # mdp에 dp 배열의 최댓값을 입력
     # 말씀하신 바와 같이 mdp가 이미 그 값을 기억하므로 안 마신 경우를 생각할 필요가 없음!
 print(max(mdp))
+
