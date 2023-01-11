@@ -18,5 +18,4 @@ for case in range(int(input())):
 
     print(max(dp[0]) if max(dp[0]) > max(dp[1]) else max(dp[1]))
 
-
 # [0][i] 에서 스티커를 제거할 시, [1][i-1] or [1][i-2] 의 최대값과 매치된다.
