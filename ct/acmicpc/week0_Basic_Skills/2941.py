@@ -12,3 +12,4 @@ for j in word:
         cnt += 1
 print(cnt)
 
+# commit test
