@@ -22,3 +22,4 @@ for i in range(2, num + 1):
 print(array)
 print(dp)
 print(max(dp[-1]))
+#commit test
