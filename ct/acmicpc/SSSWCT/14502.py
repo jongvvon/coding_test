@@ -53,11 +53,12 @@ def bfs():
     result = max(result, width)
         
 def wall(count):
+    # if wall is 3, find safe area
     if count == 3:
         bfs()
         return
 
-    # recursive 를 이용하여 벽을 세우는 모든 경우의 수를 구함
+    # using recursive and find all cases
     for i in range(n):
         for j in range(m):
             if board[i][j] == 0:
