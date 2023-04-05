@@ -1,5 +1,7 @@
 import sys
+import copy
 from collections import deque
+from pprint import pprint
 input = sys.stdin.readline
 
 # 바이러스를 막기 위한 벽 세우기
@@ -15,29 +17,53 @@ n, m = map(int, input().split())
 board = [list(map(int, input().split())) for _ in range(n)]
 
 move = [[1, 0], [-1, 0], [0, -1], [0, 1]]
+result = 0
 
-infect = []
-def infectious():
+def bfs():
+    global result
+    # copy to board, because board will be changed by wall function
+    c_board = copy.deepcopy(board)
+    
+    width = 0
+    arr = []
+
+    # save virus position
     for i in range(n):
         for j in range(m):
-            if board[i][j] == '2':
-                infect.append([i, j])
-    
-    for ix, iy in infect:
+            if c_board[i][j] == 2:
+                arr.append([i, j])
+
+    # bfs, find virus and spread
+    while arr:
+        x, y = arr[0][0], arr[0][1]
+        del arr[0]
         for dx, dy in move:
-            iix, iiy = ix+dx, iy+dy
-            if 0 < iix <= m and 0 < iiy <= n and board[iix][iiy] != 0:
-                board[iix][iiy] = 2
+            cx, cy = x + dx, y + dy
+            if 0 <= cx and cx < n and 0 <= cy and cy < m:
+                if c_board[cx][cy] == 0:
+                    c_board[cx][cy] = 2
+                    arr.append([cx, cy])
+    
+    # count safe area
+    for i in c_board:
+        for j in i:
+            if j == 0:
+                width += 1
 
+    result = max(result, width)
+        
+def wall(count):
+    if count == 3:
+        bfs()
+        return
 
-def bfs(x, y):
-    visted = []
-    q = deque()
-    for dx, dy in move:
-        q.append([x + dx, y + dy])
+    # recursive 를 이용하여 벽을 세우는 모든 경우의 수를 구함
+    for i in range(n):
+        for j in range(m):
+            if board[i][j] == 0:
+                board[i][j] = 1
+                wall(count + 1)
+                board[i][j] = 0
 
-    ddx, ddy = q.popleft()
-    while q:
-        if 0 < ddx <= n and 0 < ddy <= m:
-            visted[ddx][ddy] = 0
-
+wall(0)
+print(result)
