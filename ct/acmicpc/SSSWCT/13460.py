@@ -41,7 +41,6 @@ def solution():
     s = [[rsx,rsy,bsx,bsy,0]]
 
     while s:
-        pprint(MAP)
         pprint(s)
         pprint(visited)
         rx, ry, bx, by, cnt = s.pop(0)
@@ -54,7 +53,7 @@ def solution():
             # 빨간/파란 구슬 이동 후 좌표
             rrx, rry, rcnt = move(rx,ry,dx,dy)
             bbx, bby, bcnt = move(bx,by,dx,dy)
-
+                
             # 파란 구슬 구멍에 빠지지 않았을 때,
             if MAP[bbx][bby] != 'O':
                 # 빨간 구슬이 구멍에 들어왔다면, 
