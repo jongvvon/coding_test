@@ -41,8 +41,6 @@ def solution():
     s = [[rsx,rsy,bsx,bsy,0]]
 
     while s:
-        pprint(s)
-        pprint(visited)
         rx, ry, bx, by, cnt = s.pop(0)
         # 10번 이하로 움직여야함, 아닐 시 -1 출력
         if cnt >= 10:
