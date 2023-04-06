@@ -1,5 +1,4 @@
 from collections import deque
-from pprint import pprint
 
 num_of_computer = int(input())
 num_of_pair = int(input())
@@ -13,7 +12,6 @@ for _ in range(num_of_pair):
     graph[v].append(u)
 
 visited = [False] * (num_of_computer + 1)
-pprint(graph)
 def bfs(v):
     global count
     q = deque()
