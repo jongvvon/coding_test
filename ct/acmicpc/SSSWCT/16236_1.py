@@ -12,61 +12,44 @@
 # 공간의 상태가 주어졌을 때, 아기 상어가 몇 초 동안 엄마 상어에게 도움을 요청하지 않고 물고기를 잡아먹을 수 있는지 구하는 프로그램
 # "자신의 크기보다 작은 물고기만 먹을 수 있으며 자신의 크기만큼 개수의 물고기를 먹게되면 크기가 1 증가"
 
-import sys
+
 from collections import deque
 
-input = sys.stdin.readline
+# four directions, 
+move = [(0, 1), (0, -1), (-1, 0), (1, 0)]
 
+# grid : N x N
 n = int(input())
+# numbers in board means 0 : empty, 1 ~ 6 : size of fish, 9 : baby shark
 board = [list(map(int, input().split())) for _ in range(n)]
 
-move = [[1, 0], [-1, 0], [0, -1], [0, 1]]
-
+q = deque()
+# Save coordinate of baby shark
 for i in range(n):
     for j in range(n):
-        # location of baby shark
         if board[i][j] == 9:
-            # shark = [x, y, size, eat]
-            shark = [i, j, 2, 0]
-            # remove baby shark
-            board[i][j] = 0
+            q.append(i, j)
 
+def bfs(x, y, size):
+    for dx, dy in move:
+        nx, ny = x + dx, y + dy
+        if 0 <= nx and nx < n and 0 <= ny and ny < n:
+            # 주변(4방향)내에 먹을 수 있는 물고기가 있을 때
+            if board[nx][ny] < size and board[nx][ny] != 0:
+                continue
 
-def bfs():
-    vistied = []
-    q = deque()
-    q.append([shark[0], shark[1], 0])
-    vistied.append([shark[0], shark[1]])
-    while q:
-        x, y, cnt = q.popleft()
-        if cnt > 0:
-            return x, y, cnt
-        # move baby shark
-        for dx, dy in move:
-            nx, ny = x + dx, y + dy
-            # check if shark can move
-            # location is in board and location is smaller than shark's size
-            if 0 <= nx < n and 0 <= ny < n and board[nx][ny] <= shark[2] and [nx, ny] not in vistied:
-                q.append([nx, ny, cnt + 1])
-                vistied.append([nx, ny])
-                # check if shark can eat
-                if board[nx][ny] != 0 and board[nx][ny] < shark[2]:
-                    return nx, ny, cnt + 1
-                
-time = 0
-while True:
-    x, y, cnt = bfs()
-    # if shark can't move
-    if cnt == 0:
-        break
-    # shark eat fish
-    board[x][y] = 0
-    shark[3] += 1
-    # shark grow up
-    if shark[3] == shark[2]:
-        shark[2] += 1
-        shark[3] = 0
-    shark[0], shark[1] = x, y
-    time += cnt
+"""
+board 내에서 상어를 제외한 경우의 수를 생각
+물고기의 크기와 상관없이 진행 가능 (0~6)
+먹을 수 있는 물고기는 자신 보다 작은 물고기 (baby shark default size : 2)
+    1. 먹을 수 있는 물고기가 한 마리라면 그 물고기를 먹으러 간다.
+    2. 먹을 수 있는 물고기가 1마리보다 많다면, 거리가 가장 가까운 물고기를 먹으러 간다.
+        2-1. 거리는 아기 상어가 있는 칸에서 물고기가 있는 칸으로 이동할 때. 지나야하는 칸의 개수의 최솟값이다.
+        2-2. 거리가 가까운 물고기가 많다면, 가장 위에 있는 물고기, 그러한 물고기가 여러마리라면, 가장 왼쪽에 있는 물고기
+아기 상어는 자신의 크기와 같은 "수"의 물고기를 먹을 때 마다 크기가 1 증가한다. 
+크기가 2인 아기 상어는 물고기 2마리를 먹으면 3이 됨
 
-print(time)
+//
+아기 상어보다 작은 물고기들의 최단 거리 계산 -> 여러 마리가 있을 경우 prioirty 에 따른 (위 -> 왼쪽) 순서 결정
+size에 따른 변경값 반영 -> 더 이상 borad 내에 먹을 수 있는 물고기가 없는지 확인
+"""
