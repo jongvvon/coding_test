@@ -8,8 +8,6 @@
 # 적록색약 : R&G - B
 # 해당 기준으로 구역을 구분하여 구역의 수 출력
 from collections import deque
-import copy
-from pprint import pprint
 
 move = [(0, 1), (0, -1), (-1, 0), (1, 0)]
 
@@ -19,38 +17,46 @@ drawing = [list(map(str, input())) for _ in range(n)]
 visited = [[False] * n for _ in range(n)]
 result = 0
 
-def bfs(graph, x, y, color):
+def bfs(x, y, color):
     q = deque()
     q.append([x, y])
     while q:
         x, y = q.popleft()
-        if visited[x][y] == False:
+        if not visited[x][y]:
             visited[x][y] = True
-        for dx, dy in move:
-            cx, cy = x + dx, y + dy
-            if 0 <= cx and cx < n and 0 <= cy and cy < n:
-                if graph[cx][cy] == color: 
-                    q.append([cx, cy])
-    return
+            for dx, dy in move:
+                cx, cy = x + dx, y + dy
+                if 0 <= cx and cx < n and 0 <= cy and cy < n:
+                    if drawing[cx][cy] == color:
+                        q.append([cx, cy])
+
+# normal
+for i in range(n):
+    for j in range(n):
+        if not visited[i][j]:
+            color = drawing[i][j]
+            bfs(i, j, color)
+            result += 1
+print(result, end=" ")
+
+
 # color weakness drawing
-# 색약의 그림 자체 색깔을 변경해 주었다.
-drawing_copy = copy.deepcopy(drawing)
+visited = [[False] * n for _ in range(n)]
+result = 0
+# drawing color change for color weakness
 for i in range(n):
     for j in range(n):
-        if drawing_copy[i][j] == 'G':
-            drawing_copy[i][j] == 'R'
+        if drawing[i][j] == 'G':
+            drawing[i][j] = 'R'
 
 for i in range(n):
     for j in range(n):
-        if visited[i][j] == False:
-            color = drawing[i][j]    
-            bfs(drawing, i, j, color)
-        
-        color_w = drawing_copy[i][j]
-        bfs(drawing_copy, i, j, color_w)
+        if not visited[i][j]:
+            color = drawing[i][j]
+            bfs(i, j, color)
+            result += 1
+print(result)
 
-pprint(drawing)
-pprint(drawing_copy)
 """
 일반적인 다른 BFS 탐색과 다른 점은 그래프 내에서 이동할 수 있는 조건이 3개라는 점이다.
 따라서 bfs parameter로 color를 추가하여 그래프의 해당 값을 color와 비교해 같은 값이면 이동할 수 있고
