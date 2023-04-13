@@ -20,7 +20,6 @@
 설명만으로는 이해가 힘든 표현일 수 있으나 직접 문제를 겪게된다면 도움이 될 것으로 생각된다.
 
 '''
-from pprint import pprint
 from collections import deque
 
 # West, East, North, South
