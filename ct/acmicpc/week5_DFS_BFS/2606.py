@@ -1,3 +1,7 @@
+"""
+
+"""
+
 from collections import deque
 
 num_of_computer = int(input())

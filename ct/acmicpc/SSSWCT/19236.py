@@ -12,7 +12,7 @@
 # DFS+구현
 
 '''
-금일 코테 인증 23.04.26
+금일 코테 인증 23.04.27
 
 관련 문제 <백준 19236: 청소년상어> 성공
 
@@ -27,8 +27,11 @@
 그 방향을 가지게 됨, 이동하는 중에 지나가는 칸의 물고기는 먹지 않음
 이후 반복
 상어가 먹을 수 있는 물고기 번호의 최대값은?
+
 해결 방법 및 추가 정보
-dfs와 dp를 이용하여 해결하였다. 
+dfs를 이용하여 해결하였다. 한번에 한 동작씩 실행되다보니 dfs를 선택했는데(결국 가장 깊은 depth까지 도달해야하므로)
+dfs의 경우 재귀 방법만 기억하면 됐지만 대부분의 높은 난이도 dfs 문제들은 최종적으로 최대값이나 최소값을 얻기를 원하므로
+board를 deep copy 하여 분리시켜 재귀를 진행시켰다. 해당 문제의 경우 상어가 움직일 수 있는 모든 방향의 dfs를 실행하면서 쌓이는 점수값에 대하여 최대값만을 저장해주었다.
 '''
 
 import copy
@@ -95,7 +98,3 @@ def dfs(sx, sy, score, board):
 dfs(0, 0, 0, board)
 print(max_score)
 
-"""
-Microsoft Windows [version 10.0.22621.1555]
-fjekfmdkejfdnglas;ldkjf;lpqweuori;lkasdnmf;lkjvpoasddljfkasjawefpoasld;kfnxczmvnalsdfjawoeoasdfkjawekfa;sdlfjzxcvmlnasdflwjeisdf;lkjwweksdjlwkk 
-"""
