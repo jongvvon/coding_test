@@ -59,6 +59,53 @@
     - 100 ≤ emoticons의 원소 ≤ 1,000,000
     - emoticons의 원소는 100의 배수입니다.
 
+-> 최적의 답을 찾을 수 있는 방도가 딱히 없기때문에 전체의 경우의 수를 구한다. 할인율의 조합이 2차원이기 때문에 순열이나 조합 사용 불가능
+-> dfs 를 이용한 전체탐색을 통해 서비스 가입자가 가장 높은 경우 출력
+
+
 """
 
-print("1")
+def solution(users, emoticons):
+    answer = [0, 0]
+    data = [10, 20, 30, 40]
+    discount = []
+
+    def dfs(temp, depth):
+        if depth == len(temp):
+            discount.append(temp[:])
+            return
+        for i in data:
+            temp[depth] += i
+            dfs(temp, depth + 1)
+            temp[depth] -= i
+    
+    dfs([0] * len(emoticons), 0)
+
+    for disc in discount:
+        cnt = 0
+        get = 0
+        for i in users:
+            pay = 0
+            for j in range(len(disc)):
+                if i[0] <= disc[j]:
+                    pay += emoticons[j] * (100 - disc[j])/100
+                if pay >= i[1]:
+                    break
+            if pay >= i[1]: # 만약 유저의 제한금액 초과시 플러스 구매
+                pay = 0
+                cnt += 1
+            get += pay
+        if cnt >= answer[0]: # 현재 최대값을 넘어가면 갱신
+            if cnt == answer[0]:
+                answer[1] = max(answer[1], get)
+            else:
+                answer[1] = get
+            answer[0] = cnt
+
+    return answer
+    
+
+users = [[40, 10000], [25, 10000]]
+emoticons = [7000, 9000]
+
+solution(users, emoticons)
